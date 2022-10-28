@@ -6,7 +6,7 @@
 /*   By: mechane <mechane@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 09:55:04 by mechane           #+#    #+#             */
-/*   Updated: 2022/10/28 14:38:05 by mechane          ###   ########.fr       */
+/*   Updated: 2022/10/28 15:43:45 by mechane          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,21 +84,3 @@ char	*get_next_line(int fd)
 	stash = temp ;
 	return (line);
 }
-// int main()
-// {
-// 	int fd;
-
-// 	fd = open("txt.txt",O_RDONLY);
-// 	//fd = open(av[1],O_RDONLY);
-// 	char *line = get_next_line(fd);
-
-// 	while (line)
-// 	{
-// 		printf("%s", line);
-// 		free(line);
-// 		line = get_next_line(fd);
-
-// 	}
-// 	printf("%s\n", get_next_line(fd));
-// 	system("leaks a.out");
-// }

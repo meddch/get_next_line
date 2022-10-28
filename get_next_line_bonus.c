@@ -6,7 +6,7 @@
 /*   By: mechane <mechane@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 09:55:04 by mechane           #+#    #+#             */
-/*   Updated: 2022/10/28 15:13:45 by mechane          ###   ########.fr       */
+/*   Updated: 2022/10/28 15:46:33 by mechane          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ char	*ft_read(char *stash, int fd, char *buff)
 	char	*temp;
 	int		ret;
 
-	temp = NULL;
 	ret = 1 ;
 	while (ret > 0 && !ft_strchr(buff, '\n'))
 	{	
@@ -37,12 +36,12 @@ char	*ft_read(char *stash, int fd, char *buff)
 		if (ret == 0)
 			break ;
 		buff[ret] = '\0';
-		temp = ft_strjoin(stash[fd], buff);
-		free(stash[fd]);
-		stash[fd] = temp;
+		temp = ft_strjoin(stash, buff);
+		free(stash);
+		stash = temp;
 	}
 	free (buff);
-	return (stash[fd]);
+	return (stash);
 }
 
 char	*get_stash(char *stash, int fd)
@@ -56,18 +55,17 @@ char	*get_stash(char *stash, int fd)
 		return (NULL);
 	}
 	buff[0] = 0;
-	stash[fd] = ft_read(stash[fd], fd, buff);
-	return (stash[fd]);
+	stash = ft_read(stash, fd, buff);
+	return (stash);
 }
 
 char	*get_next_line(int fd)
 {
-	static char	*stash[10240];
+	static char	*stash[10241];
 	char		*line;
 	char		*temp;
 
-	temp = NULL;
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (fd < 0 || BUFFER_SIZE <= 0 || fd > 1024)
 		return (NULL);
 	stash[fd] = get_stash(stash[fd], fd);
 	if (!stash[fd])
