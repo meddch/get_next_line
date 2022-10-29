@@ -6,7 +6,7 @@
 /*   By: mechane <mechane@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 09:55:04 by mechane           #+#    #+#             */
-/*   Updated: 2022/10/28 15:43:45 by mechane          ###   ########.fr       */
+/*   Updated: 2022/10/29 10:35:13 by mechane          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,11 @@ char	*ft_read(char *stash, int fd, char *buff)
 	while (ret > 0 && !ft_strchr(buff, '\n'))
 	{	
 		ret = read(fd, buff, BUFFER_SIZE);
-		if (ret == 0)
-			break ;
+		if (ret < 0)
+		{
+			free(buff);
+			return (NULL);
+		}
 		buff[ret] = '\0';
 		temp = ft_strjoin(stash, buff);
 		free(stash);
@@ -52,7 +55,7 @@ char	*get_stash(char *stash, int fd)
 	buff = malloc(BUFFER_SIZE + 1);
 	if (!buff)
 	{
-		free(buff);
+		free(stash);
 		return (NULL);
 	}
 	buff[0] = 0;

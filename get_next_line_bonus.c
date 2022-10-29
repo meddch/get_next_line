@@ -6,7 +6,7 @@
 /*   By: mechane <mechane@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 09:55:04 by mechane           #+#    #+#             */
-/*   Updated: 2022/10/28 15:46:33 by mechane          ###   ########.fr       */
+/*   Updated: 2022/10/29 13:11:37 by mechane          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,11 @@ char	*ft_read(char *stash, int fd, char *buff)
 	while (ret > 0 && !ft_strchr(buff, '\n'))
 	{	
 		ret = read(fd, buff, BUFFER_SIZE);
-		if (ret == 0)
-			break ;
+		if (ret < 0)
+		{
+			free(buff);
+			return (NULL);
+		}
 		buff[ret] = '\0';
 		temp = ft_strjoin(stash, buff);
 		free(stash);
@@ -51,7 +54,7 @@ char	*get_stash(char *stash, int fd)
 	buff = malloc(BUFFER_SIZE + 1);
 	if (!buff)
 	{
-		free(buff);
+		free(stash);
 		return (NULL);
 	}
 	buff[0] = 0;
@@ -65,7 +68,7 @@ char	*get_next_line(int fd)
 	char		*line;
 	char		*temp;
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || fd > 1024)
+	if (fd < 0 || fd > 10240 || BUFFER_SIZE <= 0)
 		return (NULL);
 	stash[fd] = get_stash(stash[fd], fd);
 	if (!stash[fd])
@@ -73,7 +76,7 @@ char	*get_next_line(int fd)
 	if (!*stash[fd])
 	{	
 		free(stash[fd]);
-		return (stash[fd] = 0);
+		return (stash[fd] = 0, NULL);
 	}
 	line = ft_substr(stash[fd], 0, strlen_nw(stash[fd]) + 1);
 	temp = ft_substr(stash[fd], strlen_nw(stash[fd]) + 1,

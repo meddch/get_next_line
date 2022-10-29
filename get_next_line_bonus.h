@@ -6,21 +6,16 @@
 /*   By: mechane <mechane@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 10:24:57 by mechane           #+#    #+#             */
-/*   Updated: 2022/10/28 15:37:53 by mechane          ###   ########.fr       */
+/*   Updated: 2022/10/29 13:09:55 by mechane          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_BONUS_H
 # define GET_NEXT_LINE_BONUS_H
 
-# include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
 # include <fcntl.h>
-
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 
-# endif
 
 size_t	ft_strlen(const char *s);
 char	*ft_strjoin(const char *s1, const char *s2);
